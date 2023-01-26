@@ -1,0 +1,26 @@
+﻿.dashboard {
+	min-height: 100vh;
+	margin: auto;
+}
+.balances {
+	gap: 2rem;
+	justify-content: center;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+.balances > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: fit-content;
+	gap: 0.5rem;
+	padding: 1rem;
+	background: #241d41;
+}
+.recent-trx {
+	height: 70%;
+	.transaction-history {
+		height: 70%;
+		overflow: auto;
+	}
+}

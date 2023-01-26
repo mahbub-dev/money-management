@@ -1,0 +1,44 @@
+﻿:root {
+	--primary-text-color: #fff;
+	--secondary-text-color: #625f73;
+}
+.table > :not(caption) > * > * {
+	border-bottom-width: 0px !important;
+}
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+	border-style: none;
+}
+.trx-item {
+}
+.table {
+	background: inherit;
+	padding: 1rem;
+	border-radius: 10px;
+	border: 1px solid #2a2346;
+}
+.table thead {
+	position: sticky;
+	top: -1px;
+	background: #1d192d;
+}
+.table-hover > tbody > tr:hover > * {
+	--bs-table-accent-bg: var(--bs-table-hover-bg);
+	color: #819fbd;
+}
+table td {
+	line-height: 30px;
+}
+table tr:first-child {
+	line-height: initial;
+}
+// responsive
+@media screen and (max-width: 576px) {
+	table {
+		font-size: 12px;
+	}
+}
