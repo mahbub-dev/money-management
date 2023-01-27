@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import User from "../User/User";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 function Navigationbar() {
@@ -56,7 +57,14 @@ function Navigationbar() {
 									>
 										Clients
 									</Nav.Link>
+									<Nav.Link
+										href="#action"
+										className="text-white"
+									>
+										Logout
+									</Nav.Link>
 								</Nav>
+								<User user={''} />
 								<Form className="d-flex">
 									<Form.Control
 										type="search"

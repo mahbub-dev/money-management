@@ -1,10 +1,17 @@
-﻿/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import userRequest from "../../Api Methods/requestConfig";
+import Alert from "react-bootstrap/Alert";
+import { useGlobalContext } from "../../context";
 import "./login.scss";
-import { useState } from "react";
 
 const Login = () => {
+	const navigate = useNavigate();
+	const { setUser } = useGlobalContext();
+	const [error, setErorr] = useState({});
+
 	const [userInfo, setUserInfo] = useState({
 		email: "",
 		password: "",
@@ -12,13 +19,30 @@ const Login = () => {
 	const [loading, setLoading] = useState(false);
 	const handleChange = (e) => {
 		setUserInfo((p) => ({ ...p, [e.target.name]: e.target.value }));
+		setErorr({});
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		setTimeout(() => {
+		try {
+			const res = await userRequest.get(
+				`/auth/login/${userInfo.email}/${userInfo.password}`
+			);
+			if (res?.data) {
+				localStorage.setItem("userId", res.data?.user._id);
+				setUser(res.data?.user);
+				navigate("/dashboard");
+				window.location.reload();
+				setLoading(false);
+			}
+		} catch (err) {
+			console.log(err.response.data);
+			setErorr(err.response.data);
+			if (err.response.status === 500) {
+				document.write(err.response);
+			}
 			setLoading(false);
-		}, 2000);
+		}
 	};
 	return (
 		<div className="container-flued bg-dark text-white">
@@ -37,7 +61,7 @@ const Login = () => {
 						</label>
 						<input
 							type="email"
-							class="form-control"
+							className="form-control"
 							value={userInfo.email}
 							required
 							name="email"
@@ -50,13 +74,13 @@ const Login = () => {
 							Password
 						</label>
 						<input
-							class="form-control"
+							className="form-control"
 							type="password"
 							required
 							name="password"
 							value={userInfo.password}
 							id="password"
-							placeholder='Enter your password'
+							placeholder="Enter your password"
 							onChange={handleChange}
 						/>
 						<a
@@ -66,6 +90,9 @@ const Login = () => {
 						>
 							Forgot password
 						</a>
+						{error?.status && (
+							<Alert variant={"warning"}>{error?.msg}</Alert>
+						)}
 						<button
 							className="btn form-btn"
 							disabled={

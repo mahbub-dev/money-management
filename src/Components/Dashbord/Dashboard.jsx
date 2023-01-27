@@ -13,11 +13,10 @@ const Dashboard = () => {
 			<Navgationbar />
 			<section className="container px-0">
 				<Forms />
-				<br />
 			</section>
 
 			<div className=" dashboard container text-white ">
-				<div className="balances row ">
+				<div className="balances row">
 					<div className="banlace-box1 col-sm-3  rounded">
 						<div className="balaces-ls">
 							<img
